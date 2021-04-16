@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+{% block head %}
+	<title>{% block title %}Libro | Agregar Libro{% endblock %}</title>
+	 {% block stylesheets %}{% endblock %}
+{% endblock %}
+{% block title_body %}AGREGAR LIBRO{% endblock %}
+{% block body %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">LIBRO</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+            <i class="fas fa-minus"></i></button>
+					</div>
+	      </div>
+				<div class="form-group">
+					<div class="row m-t-15">
+					  <div class="col-md-12">
+							{% for label, flashes in app.session.flashbag.all %}
+				        {% for flash in flashes %}
+				          {% if (label == 'success') %}
+				            <div class="alert alert-success alert-dismissible" role="alert">
+				              <strong>
+				                {{ flash }}
+				              </strong>
+				              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				                <span aria-hidden="true">&times;</span>
+				              </button>
+				            </div>
+				          {% elseif ( label == 'warning' ) %}
+				            <div class="alert alert-warning alert-dismissible" role="alert">
+				              <strong>
+				                {{ flash }}
+				              </strong>
+				              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				                <span aria-hidden="true">&times;</span>
+				              </button>
+				            </div>
+				          {% endif %}
+				        {% endfor %}
+				      {% endfor %}
+						</div>
+					</div>
+				</div>
+			<form name="product" method="post" enctype="multipart/form-data" action="{{ path('crear_libro') }}">
+      <div class="card-body">
+				<div class="form-group">
+            {{ form_label(form.titulo, 'Titulo: ', { 'label_attr': {'class': 'control-label '} }) }}
+            {{ form_widget(form.titulo, { 'attr': {'class': 'form-control' , 'placeholder': 'Titulo'} }) }}
+				</div>
+				<div class="form-group">
+						{{ form_label(form.descripcion, 'Descripción: ', { 'label_attr': {'class': 'control-label '} }) }}
+						{{ form_widget(form.descripcion, { 'attr': {'class': 'form-control' , 'placeholder': 'Descripción'} }) }}
+				</div>
+        <div class="form-group">
+					<label class="control-label  required" for="libro_fecha_publicacion">Fecha Publicación: </label>
+					<div class="input-group">
+            <input type="text" id="libro_fecha_publicacion" name="libro[fecha_publicacion]" required="required" class="form-control datepicker" placeholder="Fecha Publicación">
+	          <div class="input-group-prepend">
+	            <span class="input-group-text"> <i class="fa fa-calendar"></i></span>
+	          </div>
+	        </div>
+				</div>
+				<div class="form-group">
+						{{ form_label(form.idioma, 'Idioma: ', { 'label_attr': {'class': 'control-label '} }) }}
+						{{ form_widget(form.idioma, { 'attr': {'class': 'form-control' , 'placeholder': 'Idioma'} }) }}
+				</div>
+        <div class="form-group">
+            {{ form_label(form.autor, 'Autor: ', { 'label_attr': {'class': 'control-label '} }) }}
+            {{ form_widget(form.autor, { 'attr': {'class': 'form-control' , 'placeholder': 'Autor'} }) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.cantidad_paginas, 'Número De Páginas: ', { 'label_attr': {'class': 'control-label '} }) }}
+            {{ form_widget(form.cantidad_paginas, { 'attr': {'class': 'form-control' , 'placeholder': 'Número De Páginas'} }) }}
+        </div>
+				<div class="form-group">
+          <label for="exampleInputFile">Portada Del Libro</label>
+          <div class="input-group">
+            <div class="custom-file">
+              <input type="file" name="libro[image]" class="custom-file-input" id="image_1" required>
+              <label class="custom-file-label" for="exampleInputFile">Seleccionar Archivo </label>
+            </div>
+            <div class="input-group-append">
+              <span class="input-group-text" id="">Upload</span>
+            </div>
+          </div>
+        </div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-xs-12 col-sm-4 col-md-8"></div>
+            <div class="col-xs-12 col-sm-2 col-md-2">
+              <button type="button" class="btn btn-danger waves-effect waves-light btn-block" onclick="location.href='{{path('crear_libro')}}';">Cancel</button>
+            </div>
+						<div class="col-xs-12 col-sm-2 col-md-2">
+              {{form_row(form.save , { 'label': 'Guardar' }) }}
+            </div>
+         </div>
+				 </div>
+			 </div>
+		 </form>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</div>
+
+{% endblock %}
+{% block javascripts %}
+  <script >
+    $('#libro_fecha_publicacion').datepicker()
+  </script>
+{% endblock %}
